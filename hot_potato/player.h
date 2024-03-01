@@ -93,6 +93,12 @@ public:
                                   nextPlayerHostName,
                                   nextPlayerPort);
 
+
+        #ifdef DEBUG
+        std::cout << "Client object created. Starting\n";
+        #endif 
+
+
         if (nextPlayerClient.start() != 0)
             throw std::runtime_error("Unable to connect to next client");
 

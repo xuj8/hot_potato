@@ -90,10 +90,27 @@ public:
 
         int retries = 10;
 
+
+        #ifdef DEBUG
+        std::cout << "Starting connection to " << host_info_list->ai_addr << "\n";
+        #endif
         while(retries--) {
+
+            #ifdef DEBUG
+            std::cout << "Right before connection: \n";
+            #endif
             status = connect(master_socket, host_info_list->ai_addr, host_info_list->ai_addrlen);
+
+            #ifdef DEBUG
+            std::cout << "status of connection " << status << "\n";
+            std::cout << "Error message: " << strerror(errno) << '\n';
+            #endif
+
             if (status == -1) std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             else break;
+            #ifdef DEBUG
+            std::cout << "unable to connect to " << host_info_list->ai_addr << ", retrying\n";
+            #endif
         }
 
         if (status == -1) {
@@ -105,6 +122,9 @@ public:
 
         mainClientThread = std::thread(std::bind(&Client::main, this));
         mainClientThread.detach();
+        #ifdef DEBUG
+        std::cout << "Main client thread started and detached, returning\n";
+        #endif
         return 0;
     }
 

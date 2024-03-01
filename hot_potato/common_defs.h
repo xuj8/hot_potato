@@ -2,7 +2,7 @@
 #ifndef COMMON_DEFS
 #define COMMON_DEFS
 
-#define DEBUG
+// #define DEBUG
 
 #include <iostream>
 #include <cstdio>
