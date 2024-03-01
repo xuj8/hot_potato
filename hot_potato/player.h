@@ -96,10 +96,18 @@ public:
         if (nextPlayerClient.start() != 0)
             throw std::runtime_error("Unable to connect to next client");
 
+
+        #ifdef DEBUG
+        std::cout << "Waiting for connection from Player " << prevId << '\n';
+        #endif
         // if connection successful, then wait for previous to connect
         while(selfServer.getNumConnections() < 1) {
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
+
+        #ifdef DEBUG
+        std::cout << "Player " << prevId << " has successfully connected\n";
+        #endif
 
         // upon previous connecting, report ready
         CommandPacket packet;
