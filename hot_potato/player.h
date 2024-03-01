@@ -12,10 +12,7 @@ public:
 
     Player(std::string _hostname, std::string _port) {
         // initialize the server
-        char tmp[1024];
-        memset(tmp, 0, sizeof(tmp));
-        gethostname(tmp, 1023);
-        selfHostName = std::string(tmp);
+        selfHostName = getLocalIP();
         #ifdef DEBUG
         std::cout << "hostname obtained as " << selfHostName << '\n';
         #endif
